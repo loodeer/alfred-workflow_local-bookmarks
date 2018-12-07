@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>bundleid</key>
+	<string>com.loodeer.beibei</string>
+	<key>category</key>
+	<string>Tools</string>
+	<key>connections</key>
+	<dict>
+		<key>06086E44-D4B3-427B-909F-35271F9D2D3E</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>6C21D282-87C1-4B19-9F15-BC3D769286D4</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>3ABF586D-A773-46AC-B082-01F45E5E3BC7</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>8E597660-8C21-45F6-BEC4-8EF62FDE0F00</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>F95ACC3B-DD2F-4289-B67B-EAF76D05C796</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>0053415E-C5D9-455D-A210-E08816831C03</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+	</dict>
+	<key>createdby</key>
+	<string>loodeer</string>
+	<key>description</key>
+	<string></string>
+	<key>disabled</key>
+	<false/>
+	<key>name</key>
+	<string>beibei</string>
+	<key>objects</key>
+	<array>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>browser</key>
+				<string></string>
+				<key>spaces</key>
+				<string></string>
+				<key>url</key>
+				<string>{query}</string>
+				<key>utf8</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.openurl</string>
+			<key>uid</key>
+			<string>6C21D282-87C1-4B19-9F15-BC3D769286D4</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>alfredfiltersresults</key>
+				<false/>
+				<key>argumenttype</key>
+				<integer>0</integer>
+				<key>escaping</key>
+				<integer>100</integer>
+				<key>keyword</key>
+				<string>wk</string>
+				<key>queuedelaycustom</key>
+				<integer>3</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<true/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>1</integer>
+				<key>runningsubtext</key>
+				<string>God Bless You...</string>
+				<key>script</key>
+				<string>require_once('../workflow.php');
+require_once('../result.php');
+
+$query = "{query}";
+$config = [
+    ['title' =&gt; 'issue 我的任务', 'url' =&gt; 'http://wukong.husor.com/issue/index.html'],
+    ['title' =&gt; 'myplanlist 发布计划', 'url' =&gt; 'http://wukong.husor.com/deployment/myplanlist'],
+    ['title' =&gt; 'reviewlist 代码评审', 'url' =&gt; 'http://wukong.husor.com/deployment/reviewlist'],
+    ['title' =&gt; 'deployablelist 待发布列表', 'url' =&gt; 'http://wukong.husor.com/deployment/deployablelist'],
+    ['title' =&gt; 'deploymentqueue 发布队列', 'url' =&gt; 'http://wukong.husor.com/deployment/deploymentqueue'],
+	['title' =&gt; 'yufa 预发申请', 'url' =&gt; 'http://ops.husor.com/#/workflow/document_form.html?workflow_id=35'],
+];
+
+
+$workflow = new \Alfred\Workflows\Workflow();
+
+foreach ($config as $key =&gt; $_config) {
+
+    if ($query != 'all' &amp;&amp; FALSE === strpos($_config['title'], $query)) {
+        continue;
+    }
+
+    $workflow-&gt;result()
+        -&gt;uid($key)
+        -&gt;title($_config['title'])
+        -&gt;subtitle($_config['url'])
+        -&gt;quicklookurl($_config['url'])
+        -&gt;type('default')
+        -&gt;arg($_config['url'])
+        -&gt;valid(true)
+        -&gt;icon('wukong.png');
+}
+
+echo $workflow-&gt;output();</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>subtext</key>
+				<string>wk all 查看所有</string>
+				<key>title</key>
+				<string>悟空常用地址</string>
+				<key>type</key>
+				<integer>1</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>06086E44-D4B3-427B-909F-35271F9D2D3E</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>browser</key>
+				<string></string>
+				<key>spaces</key>
+				<string></string>
+				<key>url</key>
+				<string>{query}</string>
+				<key>utf8</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.openurl</string>
+			<key>uid</key>
+			<string>0053415E-C5D9-455D-A210-E08816831C03</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>alfredfiltersresults</key>
+				<false/>
+				<key>argumenttype</key>
+				<integer>0</integer>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>keyword</key>
+				<string>mr</string>
+				<key>queuedelaycustom</key>
+				<integer>3</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<true/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>1</integer>
+				<key>runningsubtext</key>
+				<string>God Bless You...</string>
+				<key>script</key>
+				<string>require_once('../workflow.php');
+require_once('../result.php');
+
+$query = "{query}";
+$config = [
+    ['title' =&gt; 'jiaoyidapan 大盘', 'url' =&gt; 'http://marvin.husor.com/#id=8'],
+    ['title' =&gt; 'jiaoyi 交易processor性能', 'url' =&gt; 'http://marvin.husor.com/#id=1167'],
+    ['title' =&gt; 'cobarX 连接超时', 'url' =&gt; 'http://marvin.husor.com/#id=2683'],
+    ['title' =&gt; 'miandan 免单团', 'url' =&gt; 'http://marvin.husor.com/#id=2471'],
+    ['title' =&gt; 'wangan 网安接口', 'url' =&gt; 'http://marvin.husor.com/#id=2719'],
+];
+
+
+$workflow = new \Alfred\Workflows\Workflow();
+
+foreach ($config as $key =&gt; $_config) {
+
+    if ($query != 'all' &amp;&amp; FALSE === strpos($_config['title'], $query)) {
+        continue;
+    }
+
+    $workflow-&gt;result()
+        -&gt;uid($key)
+        -&gt;title($_config['title'])
+        -&gt;subtitle($_config['url'])
+        -&gt;quicklookurl($_config['url'])
+        -&gt;type('default')
+        -&gt;arg($_config['url'])
+        -&gt;valid(true)
+        -&gt;icon('paolu.png');
+}
+
+echo $workflow-&gt;output();</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>subtext</key>
+				<string>marvin all 查看所有</string>
+				<key>title</key>
+				<string>Marvin 监控.  God Bless You...</string>
+				<key>type</key>
+				<integer>1</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>F95ACC3B-DD2F-4289-B67B-EAF76D05C796</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>browser</key>
+				<string></string>
+				<key>spaces</key>
+				<string></string>
+				<key>url</key>
+				<string>{query}</string>
+				<key>utf8</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.openurl</string>
+			<key>uid</key>
+			<string>8E597660-8C21-45F6-BEC4-8EF62FDE0F00</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>alfredfiltersresults</key>
+				<false/>
+				<key>argumenttype</key>
+				<integer>0</integer>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>keyword</key>
+				<string>doc</string>
+				<key>queuedelaycustom</key>
+				<integer>3</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<true/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>1</integer>
+				<key>runningsubtext</key>
+				<string>God Bless You...</string>
+				<key>script</key>
+				<string>require_once('../workflow.php');
+require_once('../result.php');
+
+$query = "{query}";
+$config = [
+    ['title' =&gt; 'jiaoyi 交易细节熟悉', 'url' =&gt; 'http://doc.husor.com/pages/viewpage.action?pageId=99929412'],
+];
+
+
+$workflow = new \Alfred\Workflows\Workflow();
+
+foreach ($config as $key =&gt; $_config) {
+
+    if ($query != 'all' &amp;&amp; FALSE === strpos($_config['title'], $query)) {
+        continue;
+    }
+
+    $workflow-&gt;result()
+        -&gt;uid($key)
+        -&gt;title($_config['title'])
+        -&gt;subtitle($_config['url'])
+        -&gt;quicklookurl($_config['url'])
+        -&gt;type('default')
+        -&gt;arg($_config['url'])
+        -&gt;valid(true)
+        -&gt;icon('search.png');
+}
+
+echo $workflow-&gt;output();</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>subtext</key>
+				<string>doc all 查看所有</string>
+				<key>title</key>
+				<string>God Bless You...</string>
+				<key>type</key>
+				<integer>1</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>3ABF586D-A773-46AC-B082-01F45E5E3BC7</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+	</array>
+	<key>readme</key>
+	<string></string>
+	<key>uidata</key>
+	<dict>
+		<key>0053415E-C5D9-455D-A210-E08816831C03</key>
+		<dict>
+			<key>xpos</key>
+			<integer>420</integer>
+			<key>ypos</key>
+			<integer>260</integer>
+		</dict>
+		<key>06086E44-D4B3-427B-909F-35271F9D2D3E</key>
+		<dict>
+			<key>xpos</key>
+			<integer>250</integer>
+			<key>ypos</key>
+			<integer>130</integer>
+		</dict>
+		<key>3ABF586D-A773-46AC-B082-01F45E5E3BC7</key>
+		<dict>
+			<key>xpos</key>
+			<integer>250</integer>
+			<key>ypos</key>
+			<integer>400</integer>
+		</dict>
+		<key>6C21D282-87C1-4B19-9F15-BC3D769286D4</key>
+		<dict>
+			<key>xpos</key>
+			<integer>420</integer>
+			<key>ypos</key>
+			<integer>130</integer>
+		</dict>
+		<key>8E597660-8C21-45F6-BEC4-8EF62FDE0F00</key>
+		<dict>
+			<key>xpos</key>
+			<integer>420</integer>
+			<key>ypos</key>
+			<integer>400</integer>
+		</dict>
+		<key>F95ACC3B-DD2F-4289-B67B-EAF76D05C796</key>
+		<dict>
+			<key>xpos</key>
+			<integer>250</integer>
+			<key>ypos</key>
+			<integer>260</integer>
+		</dict>
+	</dict>
+	<key>webaddress</key>
+	<string></string>
+</dict>
+</plist>
