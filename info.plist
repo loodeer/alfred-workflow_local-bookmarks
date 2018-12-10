@@ -99,8 +99,8 @@
 				<key>runningsubtext</key>
 				<string>God Bless You...</string>
 				<key>script</key>
-				<string>require_once('../workflow.php');
-require_once('../result.php');
+				<string>require_once('../util/php/workflow.php');
+require_once('../util/php/result.php');
 
 $query = "{query}";
 $config = [
@@ -156,6 +156,69 @@ echo $workflow-&gt;output();</string>
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>alfredfiltersresults</key>
+				<false/>
+				<key>argumenttype</key>
+				<integer>2</integer>
+				<key>escaping</key>
+				<integer>100</integer>
+				<key>keyword</key>
+				<string>metro</string>
+				<key>queuedelaycustom</key>
+				<integer>3</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<true/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>1</integer>
+				<key>runningsubtext</key>
+				<string>Please Wait</string>
+				<key>script</key>
+				<string>include_once 'base.php';
+
+$db = new MysqliDb('127.0.0.1', 'root', '123456', 'test', '3306', 'utf8');
+$config = $db-&gt;get('citys');
+
+$workflow = new \Alfred\Workflows\Workflow();
+
+foreach ($config as $key =&gt; $_config) {
+
+    $workflow-&gt;result()
+             -&gt;uid($key)
+             -&gt;title($_config['cn_name'])
+             -&gt;subtitle($_config['en_name'])
+             //-&gt;quicklookurl($_config['url'])
+             -&gt;type('default')
+             -&gt;arg($_config['created_at'])
+             -&gt;valid(true)
+             -&gt;icon('search.png');
+}
+
+echo $workflow-&gt;output();</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>subtext</key>
+				<string>测试一下咯</string>
+				<key>title</key>
+				<string>metro search</string>
+				<key>type</key>
+				<integer>1</integer>
+				<key>withspace</key>
+				<false/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>47FB3394-8B4E-461E-9C9D-D65ED550CB87</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
 				<key>browser</key>
 				<string></string>
 				<key>spaces</key>
@@ -194,8 +257,8 @@ echo $workflow-&gt;output();</string>
 				<key>runningsubtext</key>
 				<string>God Bless You...</string>
 				<key>script</key>
-				<string>require_once('../workflow.php');
-require_once('../result.php');
+				<string>require_once('../util/php/workflow.php');
+require_once('../util/php/result.php');
 
 $query = "{query}";
 $config = [
@@ -250,25 +313,6 @@ echo $workflow-&gt;output();</string>
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>browser</key>
-				<string></string>
-				<key>spaces</key>
-				<string></string>
-				<key>url</key>
-				<string>{query}</string>
-				<key>utf8</key>
-				<true/>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.action.openurl</string>
-			<key>uid</key>
-			<string>8E597660-8C21-45F6-BEC4-8EF62FDE0F00</string>
-			<key>version</key>
-			<integer>1</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
 				<key>alfredfiltersresults</key>
 				<false/>
 				<key>argumenttype</key>
@@ -288,8 +332,8 @@ echo $workflow-&gt;output();</string>
 				<key>runningsubtext</key>
 				<string>God Bless You...</string>
 				<key>script</key>
-				<string>require_once('../workflow.php');
-require_once('../result.php');
+				<string>require_once('../util/php/workflow.php');
+require_once('../util/php/result.php');
 
 $query = "{query}";
 $config = [
@@ -337,6 +381,25 @@ echo $workflow-&gt;output();</string>
 			<key>version</key>
 			<integer>2</integer>
 		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>browser</key>
+				<string></string>
+				<key>spaces</key>
+				<string></string>
+				<key>url</key>
+				<string>{query}</string>
+				<key>utf8</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.openurl</string>
+			<key>uid</key>
+			<string>8E597660-8C21-45F6-BEC4-8EF62FDE0F00</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
 	</array>
 	<key>readme</key>
 	<string></string>
@@ -362,6 +425,13 @@ echo $workflow-&gt;output();</string>
 			<integer>250</integer>
 			<key>ypos</key>
 			<integer>400</integer>
+		</dict>
+		<key>47FB3394-8B4E-461E-9C9D-D65ED550CB87</key>
+		<dict>
+			<key>xpos</key>
+			<integer>590</integer>
+			<key>ypos</key>
+			<integer>170</integer>
 		</dict>
 		<key>6C21D282-87C1-4B19-9F15-BC3D769286D4</key>
 		<dict>
