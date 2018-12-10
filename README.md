@@ -7,11 +7,11 @@
 ### 效果图
 
 查看全部：
-![查看全部](https://github.com/loodeer/alfred-workflow_local-bookmarks/raw/master/extra/all.png)
+![查看全部](https://github.com/loodeer/alfred-workflow_local-bookmarks/blob/master/extra/all.png)
 关键词搜索：
-![搜索单个](https://github.com/loodeer/alfred-workflow_local-bookmarks/raw/master/extra/one.png)
+![搜索单个](https://github.com/loodeer/alfred-workflow_local-bookmarks/blob/master/extra/one.png)
 添加书签：
-![添加书签](https://github.com/loodeer/alfred-workflow_local-bookmarks/raw/master/extra/add.png)
+![添加书签](https://github.com/loodeer/alfred-workflow_local-bookmarks/blob/master/extra/add.png)
 
 ### mysql 存储
 ```
