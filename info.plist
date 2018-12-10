@@ -8,11 +8,11 @@
 	<string>Tools</string>
 	<key>connections</key>
 	<dict>
-		<key>06086E44-D4B3-427B-909F-35271F9D2D3E</key>
+		<key>02A24564-77F2-47A8-8F8F-37F494ADE260</key>
 		<array>
 			<dict>
 				<key>destinationuid</key>
-				<string>6C21D282-87C1-4B19-9F15-BC3D769286D4</string>
+				<string>3CDDF6F2-CC97-4851-A1A1-A70EE3E307D2</string>
 				<key>modifiers</key>
 				<integer>0</integer>
 				<key>modifiersubtext</key>
@@ -21,11 +21,11 @@
 				<false/>
 			</dict>
 		</array>
-		<key>3ABF586D-A773-46AC-B082-01F45E5E3BC7</key>
+		<key>10F53A23-2660-4EEC-A8FE-B3C1438D800A</key>
 		<array>
 			<dict>
 				<key>destinationuid</key>
-				<string>8E597660-8C21-45F6-BEC4-8EF62FDE0F00</string>
+				<string>E67E9140-2C12-492B-8A12-BE993371C77E</string>
 				<key>modifiers</key>
 				<integer>0</integer>
 				<key>modifiersubtext</key>
@@ -34,11 +34,91 @@
 				<false/>
 			</dict>
 		</array>
-		<key>F95ACC3B-DD2F-4289-B67B-EAF76D05C796</key>
+		<key>1AD556E1-9C29-4945-A4A5-FC4C077705A0</key>
 		<array>
 			<dict>
 				<key>destinationuid</key>
-				<string>0053415E-C5D9-455D-A210-E08816831C03</string>
+				<string>8204D7CB-1219-4864-880A-4D7801E3A3D5</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>3CDDF6F2-CC97-4851-A1A1-A70EE3E307D2</key>
+		<array/>
+		<key>6EF6A681-F43E-48D2-A30C-7DD8352A0CB1</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>02A24564-77F2-47A8-8F8F-37F494ADE260</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>7650CE45-965D-4143-802E-4806BDE0EA52</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>91477CEC-7CB5-41F3-8C98-DD55E04DB074</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>91477CEC-7CB5-41F3-8C98-DD55E04DB074</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>4DD14213-D6D8-4DB6-B916-881658268943</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>9EB0297F-38DB-4AFC-B9C1-0C4D13F53BD9</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>C49267A5-A3CB-4058-BD32-5241B934BB41</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>C49267A5-A3CB-4058-BD32-5241B934BB41</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>9D259A27-27BA-4518-B27A-34E0B17E8854</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+		<key>E67E9140-2C12-492B-8A12-BE993371C77E</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>E55A95E1-F94E-4CAD-A50D-166D3023100B</string>
 				<key>modifiers</key>
 				<integer>0</integer>
 				<key>modifiersubtext</key>
@@ -61,6 +141,264 @@
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>100</integer>
+				<key>script</key>
+				<string>$query = "{query}";
+include_once 'base.php';
+$db = new MysqliDb('127.0.0.1', 'root', '123456', 'alfred', '3306', 'utf8');
+list($title, $search_word, $url) = explode(',', $query);
+$id = wukong_add($db, $title, $search_word, $url);
+if($db-&gt;getLastError()) {
+	echo $db-&gt;getLastError();
+} else {
+	echo '添加成功。id:' . $id;
+}
+
+function wukong_add($db, $title, $search_word, $url) {
+    $data_time = date('Y-m-d H:i:s', time());
+    return $db-&gt;insert('bookmarks', [
+        'domain' =&gt; 'wukong',
+        'title' =&gt; $title,
+        'search_word' =&gt; $search_word,
+        'url' =&gt; $url,
+        'gmt_create' =&gt; $data_time,
+        'gmt_modified' =&gt; $data_time,
+    ]);
+}</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>1</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>02A24564-77F2-47A8-8F8F-37F494ADE260</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>lastpathcomponent</key>
+				<false/>
+				<key>onlyshowifquerypopulated</key>
+				<true/>
+				<key>removeextension</key>
+				<false/>
+				<key>text</key>
+				<string>success.</string>
+				<key>title</key>
+				<string>{query}</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.notification</string>
+			<key>uid</key>
+			<string>3CDDF6F2-CC97-4851-A1A1-A70EE3E307D2</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>0</integer>
+				<key>keyword</key>
+				<string>bm_add_wukong</string>
+				<key>subtext</key>
+				<string>title,search_word,url</string>
+				<key>text</key>
+				<string>添加悟空快捷地址...</string>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>6EF6A681-F43E-48D2-A30C-7DD8352A0CB1</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>lastpathcomponent</key>
+				<false/>
+				<key>onlyshowifquerypopulated</key>
+				<true/>
+				<key>removeextension</key>
+				<false/>
+				<key>text</key>
+				<string>success.</string>
+				<key>title</key>
+				<string>{query}</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.notification</string>
+			<key>uid</key>
+			<string>4DD14213-D6D8-4DB6-B916-881658268943</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>100</integer>
+				<key>script</key>
+				<string>$query = "{query}";
+include_once 'base.php';
+$db = new MysqliDb('127.0.0.1', 'root', '123456', 'alfred', '3306', 'utf8');
+list($title, $search_word, $url) = explode(',', $query);
+$id = wukong_add($db, $title, $search_word, $url);
+if($db-&gt;getLastError()) {
+	echo $db-&gt;getLastError();
+} else {
+	echo '添加成功。id:' . $id;
+}
+
+function wukong_add($db, $title, $search_word, $url) {
+    $data_time = date('Y-m-d H:i:s', time());
+    return $db-&gt;insert('bookmarks', [
+        'domain' =&gt; 'marvin',
+        'title' =&gt; $title,
+        'search_word' =&gt; $search_word,
+        'url' =&gt; $url,
+        'gmt_create' =&gt; $data_time,
+        'gmt_modified' =&gt; $data_time,
+    ]);
+}</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>1</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>91477CEC-7CB5-41F3-8C98-DD55E04DB074</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>0</integer>
+				<key>keyword</key>
+				<string>bm_add_marvin</string>
+				<key>subtext</key>
+				<string>title,search_word,url</string>
+				<key>text</key>
+				<string>添加 marvin 监控快捷地址...</string>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>7650CE45-965D-4143-802E-4806BDE0EA52</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>100</integer>
+				<key>script</key>
+				<string>$query = "{query}";
+include_once 'base.php';
+$db = new MysqliDb('127.0.0.1', 'root', '123456', 'alfred', '3306', 'utf8');
+list($title, $search_word, $url) = explode(',', $query);
+$id = wukong_add($db, $title, $search_word, $url);
+if($db-&gt;getLastError()) {
+	echo $db-&gt;getLastError();
+} else {
+	echo '添加成功。id:' . $id;
+}
+
+function wukong_add($db, $title, $search_word, $url) {
+    $data_time = date('Y-m-d H:i:s', time());
+    return $db-&gt;insert('bookmarks', [
+        'domain' =&gt; 'marvin',
+        'title' =&gt; $title,
+        'search_word' =&gt; $search_word,
+        'url' =&gt; $url,
+        'gmt_create' =&gt; $data_time,
+        'gmt_modified' =&gt; $data_time,
+    ]);
+}</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>type</key>
+				<integer>1</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>C49267A5-A3CB-4058-BD32-5241B934BB41</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>lastpathcomponent</key>
+				<false/>
+				<key>onlyshowifquerypopulated</key>
+				<true/>
+				<key>removeextension</key>
+				<false/>
+				<key>text</key>
+				<string>success.</string>
+				<key>title</key>
+				<string>{query}</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.notification</string>
+			<key>uid</key>
+			<string>9D259A27-27BA-4518-B27A-34E0B17E8854</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>0</integer>
+				<key>keyword</key>
+				<string>bm_add_doc</string>
+				<key>subtext</key>
+				<string>title,search_word,url</string>
+				<key>text</key>
+				<string>添加 doc 快捷地址...</string>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>9EB0297F-38DB-4AFC-B9C1-0C4D13F53BD9</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
 				<key>browser</key>
 				<string></string>
 				<key>spaces</key>
@@ -73,7 +411,7 @@
 			<key>type</key>
 			<string>alfred.workflow.action.openurl</string>
 			<key>uid</key>
-			<string>6C21D282-87C1-4B19-9F15-BC3D769286D4</string>
+			<string>8204D7CB-1219-4864-880A-4D7801E3A3D5</string>
 			<key>version</key>
 			<integer>1</integer>
 		</dict>
@@ -87,7 +425,7 @@
 				<key>escaping</key>
 				<integer>100</integer>
 				<key>keyword</key>
-				<string>wk</string>
+				<string>s</string>
 				<key>queuedelaycustom</key>
 				<integer>3</integer>
 				<key>queuedelayimmediatelyinitially</key>
@@ -97,306 +435,151 @@
 				<key>queuemode</key>
 				<integer>1</integer>
 				<key>runningsubtext</key>
-				<string>God Bless You...</string>
-				<key>script</key>
-				<string>require_once('../util/php/workflow.php');
-require_once('../util/php/result.php');
-
-$query = "{query}";
-$config = [
-    ['title' =&gt; 'issue 我的任务', 'url' =&gt; 'http://wukong.husor.com/issue/index.html'],
-    ['title' =&gt; 'myplanlist 发布计划', 'url' =&gt; 'http://wukong.husor.com/deployment/myplanlist'],
-    ['title' =&gt; 'reviewlist 代码评审', 'url' =&gt; 'http://wukong.husor.com/deployment/reviewlist'],
-    ['title' =&gt; 'deployablelist 待发布列表', 'url' =&gt; 'http://wukong.husor.com/deployment/deployablelist'],
-    ['title' =&gt; 'deploymentqueue 发布队列', 'url' =&gt; 'http://wukong.husor.com/deployment/deploymentqueue'],
-	['title' =&gt; 'yufa 预发申请', 'url' =&gt; 'http://ops.husor.com/#/workflow/document_form.html?workflow_id=35'],
-];
-
-
-$workflow = new \Alfred\Workflows\Workflow();
-
-foreach ($config as $key =&gt; $_config) {
-
-    if ($query != 'all' &amp;&amp; FALSE === strpos($_config['title'], $query)) {
-        continue;
-    }
-
-    $workflow-&gt;result()
-        -&gt;uid($key)
-        -&gt;title($_config['title'])
-        -&gt;subtitle($_config['url'])
-        -&gt;quicklookurl($_config['url'])
-        -&gt;type('default')
-        -&gt;arg($_config['url'])
-        -&gt;valid(true)
-        -&gt;icon('wukong.png');
-}
-
-echo $workflow-&gt;output();</string>
-				<key>scriptargtype</key>
-				<integer>0</integer>
-				<key>scriptfile</key>
-				<string></string>
-				<key>subtext</key>
-				<string>wk all 查看所有</string>
-				<key>title</key>
-				<string>悟空常用地址</string>
-				<key>type</key>
-				<integer>1</integer>
-				<key>withspace</key>
-				<true/>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.input.scriptfilter</string>
-			<key>uid</key>
-			<string>06086E44-D4B3-427B-909F-35271F9D2D3E</string>
-			<key>version</key>
-			<integer>2</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>alfredfiltersresults</key>
-				<false/>
-				<key>argumenttype</key>
-				<integer>2</integer>
-				<key>escaping</key>
-				<integer>100</integer>
-				<key>keyword</key>
-				<string>metro</string>
-				<key>queuedelaycustom</key>
-				<integer>3</integer>
-				<key>queuedelayimmediatelyinitially</key>
-				<true/>
-				<key>queuedelaymode</key>
-				<integer>0</integer>
-				<key>queuemode</key>
-				<integer>1</integer>
-				<key>runningsubtext</key>
-				<string>Please Wait</string>
+				<string>查询中……</string>
 				<key>script</key>
 				<string>include_once 'base.php';
 
-$db = new MysqliDb('127.0.0.1', 'root', '123456', 'test', '3306', 'utf8');
-$config = $db-&gt;get('citys');
+$db = new MysqliDb('127.0.0.1', 'root', '123456', 'alfred', '3306', 'utf8');
 
+$query = "{query}";
+
+switch ($query) {
+    case 'all':
+        break;
+    case 'wukong':
+    case 'doc':
+    case 'marvin':
+    case 'ops':
+        $db-&gt;where('domain', $query);
+        break;
+    default:
+        $db-&gt;where('search_word', '%' . $query . '%', 'like');
+        $db-&gt;orWhere('url', '%' . $query . '%', 'like');
+        $db-&gt;orWhere('title', '%' . $query . '%', 'like');
+}
+
+$config = $db-&gt;get('bookmarks');
+$icon_map = ['wukong' =&gt; 'wukong.png', 'marvin' =&gt; 'paolu.png', 'doc' =&gt; 'search.png', 'ops' =&gt; 'icon.png'];
 $workflow = new \Alfred\Workflows\Workflow();
 
 foreach ($config as $key =&gt; $_config) {
-
+    $icon = $icon_map[$_config['domain']];
     $workflow-&gt;result()
-             -&gt;uid($key)
-             -&gt;title($_config['cn_name'])
-             -&gt;subtitle($_config['en_name'])
-             //-&gt;quicklookurl($_config['url'])
+             -&gt;uid($_config['id'])
+             -&gt;title($_config['title'] . '----' . $_config['search_word'])
+             -&gt;subtitle($_config['gmt_create'] . '----' . $_config['url'])
+             -&gt;quicklookurl($_config['url'])
              -&gt;type('default')
-             -&gt;arg($_config['created_at'])
+             -&gt;arg($_config['url'])
              -&gt;valid(true)
-             -&gt;icon('search.png');
+             -&gt;icon($icon);
 }
 
-echo $workflow-&gt;output();</string>
+echo $workflow-&gt;output();
+</string>
 				<key>scriptargtype</key>
 				<integer>0</integer>
 				<key>scriptfile</key>
 				<string></string>
 				<key>subtext</key>
-				<string>测试一下咯</string>
+				<string>输入关键字搜索</string>
 				<key>title</key>
-				<string>metro search</string>
+				<string>贝贝快捷方式</string>
 				<key>type</key>
 				<integer>1</integer>
 				<key>withspace</key>
-				<false/>
+				<true/>
 			</dict>
 			<key>type</key>
 			<string>alfred.workflow.input.scriptfilter</string>
 			<key>uid</key>
-			<string>47FB3394-8B4E-461E-9C9D-D65ED550CB87</string>
+			<string>1AD556E1-9C29-4945-A4A5-FC4C077705A0</string>
 			<key>version</key>
 			<integer>2</integer>
 		</dict>
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>browser</key>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>100</integer>
+				<key>script</key>
+				<string>$query = "{query}";
+include_once 'base.php';
+$db = new MysqliDb('127.0.0.1', 'root', '123456', 'alfred', '3306', 'utf8');
+list($domain,$title, $search_word, $url) = explode(',', $query);
+$id = wukong_add($db, $domain, $title, $search_word, $url);
+if($db-&gt;getLastError()) {
+	echo $db-&gt;getLastError();
+} else {
+	echo '添加成功。id:' . $id;
+}
+
+function wukong_add($db, $domain, $title, $search_word, $url) {
+    $data_time = date('Y-m-d H:i:s', time());
+    return $db-&gt;insert('bookmarks', [
+        'domain' =&gt; $domain,
+        'title' =&gt; $title,
+        'search_word' =&gt; $search_word,
+        'url' =&gt; $url,
+        'gmt_create' =&gt; $data_time,
+        'gmt_modified' =&gt; $data_time,
+    ]);
+}</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
 				<string></string>
-				<key>spaces</key>
-				<string></string>
-				<key>url</key>
-				<string>{query}</string>
-				<key>utf8</key>
+				<key>type</key>
+				<integer>1</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>E67E9140-2C12-492B-8A12-BE993371C77E</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>0</integer>
+				<key>keyword</key>
+				<string>bm_add</string>
+				<key>subtext</key>
+				<string>domain,title,search_word,url</string>
+				<key>text</key>
+				<string>添加快捷地址...</string>
+				<key>withspace</key>
 				<true/>
 			</dict>
 			<key>type</key>
-			<string>alfred.workflow.action.openurl</string>
+			<string>alfred.workflow.input.keyword</string>
 			<key>uid</key>
-			<string>0053415E-C5D9-455D-A210-E08816831C03</string>
+			<string>10F53A23-2660-4EEC-A8FE-B3C1438D800A</string>
 			<key>version</key>
 			<integer>1</integer>
 		</dict>
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>alfredfiltersresults</key>
+				<key>lastpathcomponent</key>
 				<false/>
-				<key>argumenttype</key>
-				<integer>0</integer>
-				<key>escaping</key>
-				<integer>102</integer>
-				<key>keyword</key>
-				<string>mr</string>
-				<key>queuedelaycustom</key>
-				<integer>3</integer>
-				<key>queuedelayimmediatelyinitially</key>
+				<key>onlyshowifquerypopulated</key>
 				<true/>
-				<key>queuedelaymode</key>
-				<integer>0</integer>
-				<key>queuemode</key>
-				<integer>1</integer>
-				<key>runningsubtext</key>
-				<string>God Bless You...</string>
-				<key>script</key>
-				<string>require_once('../util/php/workflow.php');
-require_once('../util/php/result.php');
-
-$query = "{query}";
-$config = [
-    ['title' =&gt; 'jiaoyidapan 大盘', 'url' =&gt; 'http://marvin.husor.com/#id=8'],
-    ['title' =&gt; 'jiaoyi 交易processor性能', 'url' =&gt; 'http://marvin.husor.com/#id=1167'],
-    ['title' =&gt; 'cobarX 连接超时', 'url' =&gt; 'http://marvin.husor.com/#id=2683'],
-    ['title' =&gt; 'miandan 免单团', 'url' =&gt; 'http://marvin.husor.com/#id=2471'],
-    ['title' =&gt; 'wangan 网安接口', 'url' =&gt; 'http://marvin.husor.com/#id=2719'],
-];
-
-
-$workflow = new \Alfred\Workflows\Workflow();
-
-foreach ($config as $key =&gt; $_config) {
-
-    if ($query != 'all' &amp;&amp; FALSE === strpos($_config['title'], $query)) {
-        continue;
-    }
-
-    $workflow-&gt;result()
-        -&gt;uid($key)
-        -&gt;title($_config['title'])
-        -&gt;subtitle($_config['url'])
-        -&gt;quicklookurl($_config['url'])
-        -&gt;type('default')
-        -&gt;arg($_config['url'])
-        -&gt;valid(true)
-        -&gt;icon('paolu.png');
-}
-
-echo $workflow-&gt;output();</string>
-				<key>scriptargtype</key>
-				<integer>0</integer>
-				<key>scriptfile</key>
-				<string></string>
-				<key>subtext</key>
-				<string>marvin all 查看所有</string>
-				<key>title</key>
-				<string>Marvin 监控.  God Bless You...</string>
-				<key>type</key>
-				<integer>1</integer>
-				<key>withspace</key>
-				<true/>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.input.scriptfilter</string>
-			<key>uid</key>
-			<string>F95ACC3B-DD2F-4289-B67B-EAF76D05C796</string>
-			<key>version</key>
-			<integer>2</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>alfredfiltersresults</key>
+				<key>removeextension</key>
 				<false/>
-				<key>argumenttype</key>
-				<integer>0</integer>
-				<key>escaping</key>
-				<integer>102</integer>
-				<key>keyword</key>
-				<string>doc</string>
-				<key>queuedelaycustom</key>
-				<integer>3</integer>
-				<key>queuedelayimmediatelyinitially</key>
-				<true/>
-				<key>queuedelaymode</key>
-				<integer>0</integer>
-				<key>queuemode</key>
-				<integer>1</integer>
-				<key>runningsubtext</key>
-				<string>God Bless You...</string>
-				<key>script</key>
-				<string>require_once('../util/php/workflow.php');
-require_once('../util/php/result.php');
-
-$query = "{query}";
-$config = [
-    ['title' =&gt; 'jiaoyi 交易细节熟悉', 'url' =&gt; 'http://doc.husor.com/pages/viewpage.action?pageId=99929412'],
-];
-
-
-$workflow = new \Alfred\Workflows\Workflow();
-
-foreach ($config as $key =&gt; $_config) {
-
-    if ($query != 'all' &amp;&amp; FALSE === strpos($_config['title'], $query)) {
-        continue;
-    }
-
-    $workflow-&gt;result()
-        -&gt;uid($key)
-        -&gt;title($_config['title'])
-        -&gt;subtitle($_config['url'])
-        -&gt;quicklookurl($_config['url'])
-        -&gt;type('default')
-        -&gt;arg($_config['url'])
-        -&gt;valid(true)
-        -&gt;icon('search.png');
-}
-
-echo $workflow-&gt;output();</string>
-				<key>scriptargtype</key>
-				<integer>0</integer>
-				<key>scriptfile</key>
-				<string></string>
-				<key>subtext</key>
-				<string>doc all 查看所有</string>
+				<key>text</key>
+				<string>success.</string>
 				<key>title</key>
-				<string>God Bless You...</string>
-				<key>type</key>
-				<integer>1</integer>
-				<key>withspace</key>
-				<true/>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.input.scriptfilter</string>
-			<key>uid</key>
-			<string>3ABF586D-A773-46AC-B082-01F45E5E3BC7</string>
-			<key>version</key>
-			<integer>2</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>browser</key>
-				<string></string>
-				<key>spaces</key>
-				<string></string>
-				<key>url</key>
 				<string>{query}</string>
-				<key>utf8</key>
-				<true/>
 			</dict>
 			<key>type</key>
-			<string>alfred.workflow.action.openurl</string>
+			<string>alfred.workflow.output.notification</string>
 			<key>uid</key>
-			<string>8E597660-8C21-45F6-BEC4-8EF62FDE0F00</string>
+			<string>E55A95E1-F94E-4CAD-A50D-166D3023100B</string>
 			<key>version</key>
 			<integer>1</integer>
 		</dict>
@@ -405,54 +588,103 @@ echo $workflow-&gt;output();</string>
 	<string></string>
 	<key>uidata</key>
 	<dict>
-		<key>0053415E-C5D9-455D-A210-E08816831C03</key>
+		<key>02A24564-77F2-47A8-8F8F-37F494ADE260</key>
 		<dict>
 			<key>xpos</key>
-			<integer>420</integer>
+			<integer>200</integer>
+			<key>ypos</key>
+			<integer>20</integer>
+		</dict>
+		<key>10F53A23-2660-4EEC-A8FE-B3C1438D800A</key>
+		<dict>
+			<key>xpos</key>
+			<integer>30</integer>
+			<key>ypos</key>
+			<integer>380</integer>
+		</dict>
+		<key>1AD556E1-9C29-4945-A4A5-FC4C077705A0</key>
+		<dict>
+			<key>xpos</key>
+			<integer>630</integer>
+			<key>ypos</key>
+			<integer>270</integer>
+		</dict>
+		<key>3CDDF6F2-CC97-4851-A1A1-A70EE3E307D2</key>
+		<dict>
+			<key>xpos</key>
+			<integer>380</integer>
+			<key>ypos</key>
+			<integer>20</integer>
+		</dict>
+		<key>4DD14213-D6D8-4DB6-B916-881658268943</key>
+		<dict>
+			<key>xpos</key>
+			<integer>380</integer>
+			<key>ypos</key>
+			<integer>140</integer>
+		</dict>
+		<key>6EF6A681-F43E-48D2-A30C-7DD8352A0CB1</key>
+		<dict>
+			<key>xpos</key>
+			<integer>30</integer>
+			<key>ypos</key>
+			<integer>20</integer>
+		</dict>
+		<key>7650CE45-965D-4143-802E-4806BDE0EA52</key>
+		<dict>
+			<key>xpos</key>
+			<integer>30</integer>
+			<key>ypos</key>
+			<integer>140</integer>
+		</dict>
+		<key>8204D7CB-1219-4864-880A-4D7801E3A3D5</key>
+		<dict>
+			<key>xpos</key>
+			<integer>800</integer>
+			<key>ypos</key>
+			<integer>270</integer>
+		</dict>
+		<key>91477CEC-7CB5-41F3-8C98-DD55E04DB074</key>
+		<dict>
+			<key>xpos</key>
+			<integer>200</integer>
+			<key>ypos</key>
+			<integer>140</integer>
+		</dict>
+		<key>9D259A27-27BA-4518-B27A-34E0B17E8854</key>
+		<dict>
+			<key>xpos</key>
+			<integer>380</integer>
 			<key>ypos</key>
 			<integer>260</integer>
 		</dict>
-		<key>06086E44-D4B3-427B-909F-35271F9D2D3E</key>
+		<key>9EB0297F-38DB-4AFC-B9C1-0C4D13F53BD9</key>
 		<dict>
 			<key>xpos</key>
-			<integer>250</integer>
-			<key>ypos</key>
-			<integer>130</integer>
-		</dict>
-		<key>3ABF586D-A773-46AC-B082-01F45E5E3BC7</key>
-		<dict>
-			<key>xpos</key>
-			<integer>250</integer>
-			<key>ypos</key>
-			<integer>400</integer>
-		</dict>
-		<key>47FB3394-8B4E-461E-9C9D-D65ED550CB87</key>
-		<dict>
-			<key>xpos</key>
-			<integer>590</integer>
-			<key>ypos</key>
-			<integer>170</integer>
-		</dict>
-		<key>6C21D282-87C1-4B19-9F15-BC3D769286D4</key>
-		<dict>
-			<key>xpos</key>
-			<integer>420</integer>
-			<key>ypos</key>
-			<integer>130</integer>
-		</dict>
-		<key>8E597660-8C21-45F6-BEC4-8EF62FDE0F00</key>
-		<dict>
-			<key>xpos</key>
-			<integer>420</integer>
-			<key>ypos</key>
-			<integer>400</integer>
-		</dict>
-		<key>F95ACC3B-DD2F-4289-B67B-EAF76D05C796</key>
-		<dict>
-			<key>xpos</key>
-			<integer>250</integer>
+			<integer>30</integer>
 			<key>ypos</key>
 			<integer>260</integer>
+		</dict>
+		<key>C49267A5-A3CB-4058-BD32-5241B934BB41</key>
+		<dict>
+			<key>xpos</key>
+			<integer>200</integer>
+			<key>ypos</key>
+			<integer>260</integer>
+		</dict>
+		<key>E55A95E1-F94E-4CAD-A50D-166D3023100B</key>
+		<dict>
+			<key>xpos</key>
+			<integer>380</integer>
+			<key>ypos</key>
+			<integer>380</integer>
+		</dict>
+		<key>E67E9140-2C12-492B-8A12-BE993371C77E</key>
+		<dict>
+			<key>xpos</key>
+			<integer>200</integer>
+			<key>ypos</key>
+			<integer>380</integer>
 		</dict>
 	</dict>
 	<key>webaddress</key>
