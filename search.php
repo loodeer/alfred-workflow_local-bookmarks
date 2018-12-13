@@ -30,12 +30,13 @@ switch ($query) {
 
 $config = $db->get('bookmarks');
 
-$icon_map = ['wukong' => 'wukong.png', 'marvin' => 'paolu.png', 'doc' => 'search.png', 'ops' => 'icon.png'];
-
 $workflow = new \Alfred\Workflows\Workflow();
 
 foreach ($config as $key => $_config) {
-    $icon = $icon_map[$_config['domain']];
+    $icon = 'icon.png';
+    if (file_exists($_config['domain'] . '.png')) {
+        $icon = $_config['domain'] . '.png';
+    }
     $workflow->result()
              ->uid($_config['id'])
              ->title($_config['title'] . '----' . $_config['search_word'])

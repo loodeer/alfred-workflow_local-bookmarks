@@ -313,6 +313,27 @@ function wukong_add($db, $title, $search_word, $url) {
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>argumenttype</key>
+				<integer>0</integer>
+				<key>keyword</key>
+				<string>bm_add_doc</string>
+				<key>subtext</key>
+				<string>title,search_word,url</string>
+				<key>text</key>
+				<string>添加 doc 快捷地址...</string>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>9EB0297F-38DB-4AFC-B9C1-0C4D13F53BD9</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
 				<key>concurrently</key>
 				<false/>
 				<key>escaping</key>
@@ -332,7 +353,7 @@ if($db-&gt;getLastError()) {
 function wukong_add($db, $title, $search_word, $url) {
     $data_time = date('Y-m-d H:i:s', time());
     return $db-&gt;insert('bookmarks', [
-        'domain' =&gt; 'marvin',
+        'domain' =&gt; 'doc',
         'title' =&gt; $title,
         'search_word' =&gt; $search_word,
         'url' =&gt; $url,
@@ -372,27 +393,6 @@ function wukong_add($db, $title, $search_word, $url) {
 			<string>alfred.workflow.output.notification</string>
 			<key>uid</key>
 			<string>9D259A27-27BA-4518-B27A-34E0B17E8854</string>
-			<key>version</key>
-			<integer>1</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>argumenttype</key>
-				<integer>0</integer>
-				<key>keyword</key>
-				<string>bm_add_doc</string>
-				<key>subtext</key>
-				<string>title,search_word,url</string>
-				<key>text</key>
-				<string>添加 doc 快捷地址...</string>
-				<key>withspace</key>
-				<true/>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.input.keyword</string>
-			<key>uid</key>
-			<string>9EB0297F-38DB-4AFC-B9C1-0C4D13F53BD9</string>
 			<key>version</key>
 			<integer>1</integer>
 		</dict>
@@ -459,11 +459,15 @@ switch ($query) {
 }
 
 $config = $db-&gt;get('bookmarks');
-$icon_map = ['wukong' =&gt; 'wukong.png', 'marvin' =&gt; 'paolu.png', 'doc' =&gt; 'search.png', 'ops' =&gt; 'icon.png'];
+//$icon_map = ['wukong' =&gt; 'wukong.png', 'marvin' =&gt; 'paolu.png', 'doc' =&gt; 'search.png', 'ops' =&gt; 'icon.png','csdn' =&gt; 'csdn.png'];
 $workflow = new \Alfred\Workflows\Workflow();
 
 foreach ($config as $key =&gt; $_config) {
-    $icon = $icon_map[$_config['domain']];
+    //$icon = 'icon.png';
+	$icon = 'icon.png';
+    if (file_exists($_config['domain'] . '.png')) {
+        $icon = $_config['domain'] . '.png';
+    }
     $workflow-&gt;result()
              -&gt;uid($_config['id'])
              -&gt;title($_config['title'] . '----' . $_config['search_word'])
@@ -544,27 +548,6 @@ function wukong_add($db, $domain, $title, $search_word, $url) {
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>argumenttype</key>
-				<integer>0</integer>
-				<key>keyword</key>
-				<string>bm_add</string>
-				<key>subtext</key>
-				<string>domain,title,search_word,url</string>
-				<key>text</key>
-				<string>添加快捷地址...</string>
-				<key>withspace</key>
-				<true/>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.input.keyword</string>
-			<key>uid</key>
-			<string>10F53A23-2660-4EEC-A8FE-B3C1438D800A</string>
-			<key>version</key>
-			<integer>1</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
 				<key>lastpathcomponent</key>
 				<false/>
 				<key>onlyshowifquerypopulated</key>
@@ -580,6 +563,27 @@ function wukong_add($db, $domain, $title, $search_word, $url) {
 			<string>alfred.workflow.output.notification</string>
 			<key>uid</key>
 			<string>E55A95E1-F94E-4CAD-A50D-166D3023100B</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>0</integer>
+				<key>keyword</key>
+				<string>bm_add</string>
+				<key>subtext</key>
+				<string>domain,title,search_word,url</string>
+				<key>text</key>
+				<string>添加快捷地址...</string>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>10F53A23-2660-4EEC-A8FE-B3C1438D800A</string>
 			<key>version</key>
 			<integer>1</integer>
 		</dict>
